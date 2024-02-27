@@ -1,0 +1,36 @@
+#### pagina principal    
+GET http://localhost:3000
+
+#### recuperar peliculas 
+GET http://localhost:3000/movies
+
+#### recuperar una pelicula
+GET http://localhost:3000/movies/7d2832f8-c70a-410e-8963-4c93bf36cc9c
+
+#### filtrar por genre 
+GET http://localhost:3000/movies?genre=action
+
+#### POST pelicula add 
+
+POST http://localhost:3000/movies HTTP/1.1
+Content-Type:  application/json
+
+{    
+   "title": "PORONGA",
+   "year": 1997,
+   "director": "ADVINCULAAAAAAAAAAAAA",
+   "duration": 195,
+   "poster": "https://i.pinimg.com/originals/42/42/65/4242658e6f1b0d6322a4a93e0383108b.png",
+   "genre": ["Drama", "Romance"],
+   "rate": 7.8
+  }
+
+
+#### PATCH pelicula update
+PATCH http://localhost:3000/movies/dcdd0fad-a94c-4810-8acc-5f108d3b18c3 HTTP/1.1
+Content-Type:  application/json
+
+{
+    "year": 2010
+}
+

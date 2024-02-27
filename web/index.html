@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Movies</h1>
+    <div id="app"></div>
+    
+    
+    <script type="module">
+
+        const app = document.getElementById("app");
+        fetch("http://localhost:3000/movies")
+        .then(response => response.json())
+.then(movies => 
+{
+    app.innerHTML = movies.map(m => `<div>
+        <article id="${m.id}">
+    <h1>${m.title}</h1>
+    <img src="${m.poster}" alt="">
+    <h4> Director: ${m.director} </h4>
+    <h4> Año: ${m.year} </h4>
+    <h4> Duración: ${m.duration} </h4>
+    <h4> Rating: ${m.rate} </h4>
+    <button data-id="${m.id}">Eliminar</button>
+    <hr>
+</article>
+        ${m.title}
+        </div>`).join("")
+})
+document.addEventListener("click", e =>{
+    if(e.target.matches("button")){
+        const article = e.target.closest("article"); // closest busca el primer elemento que coincida con el selector
+        if(!article) return;
+    const id = article.dataset.id 
+    console.log('====================================');
+    console.log(id);
+    console.log('====================================');
+    fetch(`http://localhost:3000/movies/${id}`, {
+        method: "DELETE"
+    }).then(response => response.json()).then(res=>{
+        if(res.ok){
+            article.remove();
+        }
+    })
+    }
+})
+    </script>
+</body>
+</html>
