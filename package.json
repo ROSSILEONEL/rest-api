@@ -7,7 +7,7 @@
   "devDependencies": {
     "standard": "^17.1.0"
   },
-  "name": "rest-api",
+  "name": "clase-3",
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
