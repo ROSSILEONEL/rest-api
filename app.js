@@ -18,8 +18,12 @@ app.use(express.json() , (req, res, next) => {
     
     next();
 });
-app.use(cors({
-    origin: (origin, callback) => {
+
+
+//origin viene de la cabecera const origin = req.header("Origin")
+// el navegador no envia nunca el header de origin cuando refrescamos una pagina que ya habiamos cargado
+// el paquete cors ya lo hace automaticamente
+app.use(cors({origin: (origin, callback) => {
       const ACCEPTED_ORIGINS = [
         'http://localhost:8080',
         'http://localhost:3000',
