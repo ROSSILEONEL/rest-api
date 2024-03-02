@@ -1,4 +1,4 @@
-const z = require("zod");
+import {z , string} from "zod";
 
 
 
@@ -11,19 +11,17 @@ const schemaMovie = z.object({
     director: z.string(),
     duration: z.number().positive(),
     poster: z.string().url(),
-    genre: z.array(z.string()),
+    genre: z.array(string()),
     rate: z.number().min(0).max(10),
 
 
 })
 
-function validateMovie(movie){
+export function validateMovie(movie){
     return schemaMovie.safeParse(movie);
 }
 
-function validatePartialMovie(movie){
+export function validatePartialMovie(movie){
     return schemaMovie.partial().safeParse(movie);
 }
 
-module.exports = validateMovie 
-module.exports = validatePartialMovie

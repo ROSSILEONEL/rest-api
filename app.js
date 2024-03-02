@@ -1,18 +1,30 @@
 
-const express = require("express");
-const movies = require("./movies.json");
-const crypto = require("crypto");
-const cors = require("cors");
-const validateMovie = require("./schema/movies");
-const validatePartialMovie = require("./schema/movies");
+import express, {json} from "express";
+// import {movies} from "./movies.json"; --> no funcion en nodeJS ESmodule
+import { randomUUID } from "crypto";
+import cors from "cors";
+import {validatePartialMovie, validateMovie} from "./schema/movies.js";
+import {readJSON} from "./utils.js";
+
+//soluciones al error de import movies from "./movies.json";
+//import {movies} from "./movies.json" assert {type: "json"}; deprecada,
+//import movies from "./movies.json" with {type: "json"}  --> asi sera en el futuro
+//- - - ---con fileSystem
+// import fs from "node:fs";
+// const movies = JSON.parse(fs.readFileSync("./movies.json"))
+
+// como leer un json recomendado por ahora
+// import { createRequire } from "node:module";
+// const require = createRequire(import.meta.url);
+// const movies = require("./movies.json")
+const movies = readJSON("./movies.json");
+
+
 
 const app= express();
-
-
-
-app.use(express.json() , (req, res, next) => {
+app.use(json() , (req, res, next) => {
    
-    express.json();
+    json();
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, PATCH");
     
@@ -88,7 +100,7 @@ app.get("/movies/:id", (req, res) => {
 
 app.post("/movies", (req, res) => {
 const result= validateMovie(req.body);    
-express.json();
+  json();
 console.log('====================================');
 console.log('bodyyyy',req.body);
 console.log(result);
@@ -96,7 +108,7 @@ console.log('====================================');
 
 
     const newMovie = {
-        id:crypto.randomUUID(),
+        id:randomUUID(),
       ...result.data
     }
         
